@@ -5,6 +5,8 @@
  * 1. Introduction to Java helpful.
  */
 
+import java.util.Objects;
+
 public abstract class Bag {
     /*
      * TODO: Create the following private instance variables
@@ -13,6 +15,10 @@ public abstract class Bag {
      *       - an int named capacity
      *       - an array of Strings named contents
      */
+    private String color;
+    private int numberOfContents;
+    private int capacity;
+    String[] contents;
 
 
 
@@ -27,6 +33,12 @@ public abstract class Bag {
      * its contents.)
      */
 
+    public Bag(String color, int capacity){
+        this.color = color;
+        this.capacity = capacity;
+        this.numberOfContents = 0;
+        this.contents = new String[capacity];
+    }
 
 
 
@@ -38,17 +50,27 @@ public abstract class Bag {
      *           - getCapacity
      */
 
+    public String getColor() {
+        return this.color;
 
+    }
 
+    public int getNumberOfContents(){
+        return this.numberOfContents;
+    }
+
+    public int getCapacity(){
+        return this.capacity;
+    }
 
     /*
      * TODO: Create a setter function called setColor which sets the
      *       color of this bag to the given color.
      */
 
-
-
-
+    public void setColor(String color) {
+        this.color = color;
+    }
 
     /*
      * TODO: Create a method called addItem that takes in a String
@@ -61,6 +83,18 @@ public abstract class Bag {
      *       and false otherwise.
      */
 
+    public boolean addItem(String item){
+        if(this.numberOfContents < this.capacity){
+            int index = this.numberOfContents;
+            this.contents[index] = item;
+            this.numberOfContents ++;
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
 
 
 
@@ -76,6 +110,18 @@ public abstract class Bag {
      * @return
      */
 
+    public String popItem(){
+        if(this.numberOfContents == 0){
+            return null;
+        }
+        else{
+            int last_obj_index = this.numberOfContents - 1;
+            String last_obj = this.contents[last_obj_index];
+            this.contents[this.numberOfContents - 1] = null;
+            this.numberOfContents--;
+            return last_obj;
+        }
+    }
 
 
 
@@ -86,7 +132,14 @@ public abstract class Bag {
      * @param n the amount to increase this Bag's capacity by
      */
     public void increaseCapacity(int n) {
-        // TODO: Implement this method.
+        this.capacity += n;
+        String[] extra_bag_space = new String[this.capacity];
+
+        for(int i = 0; i < this.numberOfContents; i++){
+            extra_bag_space[i] = this.contents[i];
+        }
+        this.contents = extra_bag_space;
+
 
     }
 
